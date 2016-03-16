@@ -5,6 +5,7 @@ import ru.bakigoal.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by ilmir on 15.03.16.
@@ -12,12 +13,19 @@ import java.util.List;
 @Repository
 public class PlayerRepository {
 
-    private static List<Player> players = new ArrayList<>();
+    private AtomicLong counter;
+    private List<Player> players;
 
-    static {
-        players.add(new Player(1, "Baki", 28, "Forward"));
-        players.add(new Player(2, "Baki Junior", 19, "Midfielder"));
-        players.add(new Player(3, "Baki Middle", 26, "Defender"));
+    public PlayerRepository() {
+        players = new ArrayList<>();
+        counter = new AtomicLong();
+        initDefaultPlayers();
+    }
+
+    private void initDefaultPlayers() {
+        savePlayer(new Player("Baki", 28, "Forward"));
+        savePlayer(new Player("Baki Middle", 26, "Defender"));
+        savePlayer(new Player("Baki Junior", 19, "Midfielder"));
     }
 
     public List<Player> getAllPlayers() {
@@ -44,13 +52,14 @@ public class PlayerRepository {
 
     public void savePlayer(Player player) {
         if (player != null) {
+            player.setId(counter.incrementAndGet());
             players.add(player);
         }
     }
 
     public void updatePlayer(Player currentPlayer) {
-        for(Player player: players){
-            if(player.equals(currentPlayer)){
+        for (Player player : players) {
+            if (player.equals(currentPlayer)) {
                 player.setName(currentPlayer.getName());
                 player.setAge(currentPlayer.getAge());
                 player.setAmplua(currentPlayer.getAmplua());
@@ -59,8 +68,8 @@ public class PlayerRepository {
     }
 
     public void deletePlayer(long id) {
-        for (Player player: players){
-            if(player.getId() == id){
+        for (Player player : players) {
+            if (player.getId() == id) {
                 players.remove(player);
                 break;
             }

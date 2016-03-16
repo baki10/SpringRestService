@@ -5,20 +5,22 @@ package ru.bakigoal.model;
  */
 public class Player {
 
-    private final long id;
+    private long id;
     private String name;
     private int age;
     private String amplua;
 
-    public Player(long id) {
-        this.id = id;
+    public Player() {
     }
 
-    public Player(long id, String name, int age, String amplua) {
-        this.id = id;
+    public Player(String name, int age, String amplua) {
         this.name = name;
         this.age = age;
         this.amplua = amplua;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
