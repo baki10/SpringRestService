@@ -75,7 +75,7 @@ public class PlayerController {
 
     //------------------- Delete a Player --------------------------------------------------------
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/player/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Player> deleteUser(@PathVariable("id") long id) {
         Player player = playerService.findById(id);
         if (player == null) {
@@ -87,7 +87,7 @@ public class PlayerController {
 
     //------------------- Delete All Users --------------------------------------------------------
 
-    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/player/", method = RequestMethod.DELETE)
     public ResponseEntity<Player> deleteAllUsers() {
         playerService.deleteAllPlayers();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
